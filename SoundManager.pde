@@ -26,6 +26,8 @@ class Player {
     if (this._file != null) {
       if (this._file.isPlaying()) {
         this._file.pause();
+      }else{
+        this._file.play();
       }
     }
   }

@@ -14,7 +14,7 @@ class MyControlListener implements ControlListener {
       case(11):  // controls the playList from the dropdown
       int index = (int)theEvent.getController().getValue();
       String songName =  this._cp5.get(ScrollableList.class, "dropdown").getItem(index).get("name").toString();
-      playSong(songName);
+      this.playSong(songName);
       println(songName);
       break;
       case(22):
@@ -25,6 +25,7 @@ class MyControlListener implements ControlListener {
       break;
       case(24):
         println("PLAY/PAUSE");
+        this.pauseSong();
       break;
     }
   }

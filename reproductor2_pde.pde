@@ -9,7 +9,7 @@ void setup () {
   List playList = getFileNames();
   //playTest();
   gui.setPlayList(playList);
-  player = new Player(this);
+  //player = new Player(this);
 }
 void draw() {
 
