@@ -4,17 +4,21 @@ import java.util.*;
 class MyControlListener implements ControlListener {
   ControlP5 _cp5;
   Player _player;
+  GUI _gui;
 
   MyControlListener(PApplet thePApplet, ControlP5 cp5,GUI gui) {
     this._cp5 = cp5;
     this._player = new Player(thePApplet);
+    this._gui = gui;
   }
   public void controlEvent(ControlEvent theEvent) {
     switch(theEvent.getId()) {
       case(11):  // controls the playList from the dropdown
       int index = (int)theEvent.getController().getValue();
-      String songName =  this._cp5.get(ScrollableList.class, "dropdown").getItem(index).get("name").toString();
+      String songName = this._gui.getSongName(index); 
+      //this._cp5.get(ScrollableList.class, "dropdown").getItem(index).get("name").toString();
       this.playSong(songName);
+      this._gui.setIndex(index);
       println(songName);
       break;
       case(22):
@@ -70,7 +74,7 @@ class GUI {
     this._nextBtn.setPosition(480, 255);
     this._prevBtn = cp5.addButton("Prev").setId(23);
     this._prevBtn.setPosition(320, 255);
-    this._playBtn = cp5.addButton("Play").setId(24);
+    this._playBtn = cp5.addButton("Play/Pause").setId(24);
     this._playBtn.setPosition(400, 255);
 
 
@@ -140,5 +144,16 @@ class GUI {
       }
     }
     this.cp5.get(ScrollableList.class, "dropdown").setValue(this._index);
+  }
+  
+  /* get the name of the song
+  */
+  String getSongName(int index){
+    return this.cp5.get(ScrollableList.class, "dropdown").getItem(index).get("name").toString();
+  }
+  
+  /*Sets the index*/
+  void setIndex(int index){
+    this._index = index;
   }
 }
