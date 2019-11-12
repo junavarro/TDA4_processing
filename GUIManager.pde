@@ -1,5 +1,45 @@
 import controlP5.*;
 import java.util.*;
+
+class MyControlListener implements ControlListener {
+  ControlP5 _cp5;
+  Player _player;
+
+  MyControlListener(PApplet thePApplet,ControlP5 cp5) {
+    this._cp5 = cp5;
+    this._player = new Player(thePApplet);
+  }
+  public void controlEvent(ControlEvent theEvent) {
+    switch(theEvent.getId()) {
+      case(11): 
+      int index = (int)theEvent.getController().getValue();
+      String songName =  this._cp5.get(ScrollableList.class, "dropdown").getItem(index).get("name").toString();
+      playSong(songName);
+      println(songName);
+      
+      break;
+    }
+  }
+   /*
+  
+  */
+  void applySong(){
+  
+  }
+  
+  /** Plays a song */
+  void playSong(String song){
+    this._player.playSong(song);
+  }
+  void pauseSong(){
+    this._player.pauseSong();
+  }
+  void stopSong(){
+    this._player.stopSong();
+  }
+  
+  
+}
 class GUI {
   ControlP5 cp5;
   Slider _slider;
@@ -8,7 +48,9 @@ class GUI {
   Button _playBtn;
   Textlabel _myTextlabel;
   ScrollableList _scrollableList;
-
+  MyControlListener _listener;
+  
+ 
 
   GUI(PApplet thePApplet) {
     cp5 = new ControlP5(thePApplet);
@@ -33,19 +75,24 @@ class GUI {
       .setSize(200, 160)
       .setBarHeight(20)
       .setItemHeight(20)
-      .setType(ScrollableList.LIST);
+      .setType(ScrollableList.LIST)
+      .setId(11);
+    _listener = new MyControlListener(thePApplet,cp5);
+    cp5.getController("dropdown").addListener(_listener);
 
     fill(0, 0, 0, 1);
     stroke(204, 102, 0);
     rect(40, 90, 220, 200);
-    
+
     fill(0, 0, 0, 1);
     stroke(204, 102, 0);
     rect(270, 90, 320, 140);
-    
+
     fill(0, 0, 0, 1);
     stroke(204, 102, 0);
     rect(270, 240, 320, 50);
+    
+   
   }
 
 
@@ -55,7 +102,10 @@ class GUI {
   void setPlayList( List playList) {
     this._scrollableList.setItems(playList);
   }
-
+  
+ 
+  
+  
   
   
 }
