@@ -1,6 +1,7 @@
 import java.util.Date;
 import java.io.File;
-void getFileNames() {
+import java.util.*;
+List getFileNames() {
 
   // we'll have a look in the data folder
   java.io.File folder = new java.io.File(dataPath(""));
@@ -9,7 +10,9 @@ void getFileNames() {
   String[] filenames = folder.list();
 
   // display the filenames
-  for (int i = 0; i < filenames.length; i++) {
-    println(filenames[i]);
-  }
+  List fileList = Arrays.asList(filenames);
+  //for (int i = 0; i < filenames.length; i++) {
+  //  println(filenames[i]);
+  //}
+  return fileList;
 }

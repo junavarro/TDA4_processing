@@ -4,16 +4,10 @@ GUI gui;
 void setup () {
   size(600, 400);
   background(0);
-    
-  //jControl = new ControlP5(this);
-  //Slider slider  = jControl.addSlider("B_COLOR", 0, 255, 100, 10, 10, 100, 10);
-  //jControl.addButton("Next");
-  //jControl.addButton("Prev");
-  
   gui = new GUI(this);
-  
-  getFileNames();
+  List playList = getFileNames();
   playTest();
+  gui.setPlayList(playList);
 }
 void draw() {
 
