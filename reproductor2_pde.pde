@@ -2,7 +2,7 @@ import controlP5.*;
 GUI gui;
 //ControlP5 jControl;
 void setup () {
-  size(600, 600);
+  size(600, 400);
   background(0);
     
   //jControl = new ControlP5(this);
