@@ -5,7 +5,7 @@ class MyControlListener implements ControlListener {
   ControlP5 _cp5;
   Player _player;
 
-  MyControlListener(PApplet thePApplet, ControlP5 cp5) {
+  MyControlListener(PApplet thePApplet, ControlP5 cp5,GUI gui) {
     this._cp5 = cp5;
     this._player = new Player(thePApplet);
   }
@@ -18,14 +18,16 @@ class MyControlListener implements ControlListener {
       println(songName);
       break;
       case(22):
-         println("NEXT");
+      println("NEXT");
+      gui.nextSong();
       break;
       case(23):
-        println("PREV");
+      println("PREV");
+      gui.prevSong();
       break;
       case(24):
-        println("PLAY/PAUSE");
-        this.pauseSong();
+      println("PLAY/PAUSE");
+      this.pauseSong();
       break;
     }
   }
@@ -55,6 +57,8 @@ class GUI {
   Textlabel _myTextlabel;
   ScrollableList _scrollableList;
   MyControlListener _listener;
+  int _index = -1;
+  int _optionsCount = 0;
 
 
 
@@ -68,7 +72,7 @@ class GUI {
     this._prevBtn.setPosition(320, 255);
     this._playBtn = cp5.addButton("Play").setId(24);
     this._playBtn.setPosition(400, 255);
-    
+
 
 
     this._myTextlabel =new Textlabel(cp5, "Name: ", 280, 100);
@@ -84,7 +88,7 @@ class GUI {
       .setItemHeight(20)
       .setType(ScrollableList.LIST)
       .setId(11);
-    _listener = new MyControlListener(thePApplet, cp5);
+    _listener = new MyControlListener(thePApplet, cp5,this);
     cp5.addListener(_listener);
 
     fill(0, 0, 0, 1);
@@ -106,5 +110,35 @@ class GUI {
    **/
   void setPlayList( List playList) {
     this._scrollableList.setItems(playList);
+    this._optionsCount = playList.size();
+  }
+
+  /*
+  Next song
+   */
+  void nextSong() {
+    if (this._index == -1) {
+      this._index = 0;
+    } else {
+      if (this._index+1 < this._optionsCount) {
+        this._index += 1;
+      } else {
+        this._index = 0;
+      }
+    }
+    this.cp5.get(ScrollableList.class, "dropdown").setValue(this._index);
+  }
+  /*Prev song*/
+  void prevSong() {
+    if (this._index == -1) {
+      this._index = 0;
+    } else {
+      if (this._index -1 < 0 ) {
+        this._index = this._optionsCount-1;
+      } else {
+        this._index -=1;
+      }
+    }
+    this.cp5.get(ScrollableList.class, "dropdown").setValue(this._index);
   }
 }
