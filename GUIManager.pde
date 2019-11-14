@@ -23,11 +23,11 @@ class MyControlListener implements ControlListener {
       break;
       case(22):
       println("NEXT");
-      gui.nextSong();
+      this._gui.nextSong();
       break;
       case(23):
       println("PREV");
-      gui.prevSong();
+      this._gui.prevSong();
       break;
       case(24):
       println("PLAY/PAUSE");
@@ -145,6 +145,11 @@ class GUI {
     }
     this.cp5.get(ScrollableList.class, "dropdown").setValue(this._index);
   }
+  void pauseSong() {
+   this._listener.pauseSong();
+  }
+  
+  /**/
   
   /* get the name of the song
   */
